@@ -1,0 +1,138 @@
+# Correlation Charts
+## Scatterplot
+
+
+import seaborn as sns
+tips = sns.load_dataset("tips")
+df = tips.copy()
+df.head()
+
+
+sns.scatterplot(x = "total_bill", y = "tip", data = df);
+
+# crossovers
+sns.scatterplot(x = "total_bill", y = "tip", hue = "time",data = df);
+
+sns.scatterplot(x = "total_bill", y = "tip", hue = "time", style = "time", data = df);
+
+sns.scatterplot(x = "total_bill", y = "tip", hue = "day", style = "day", data = df);
+
+sns.scatterplot(x = "total_bill", y = "tip", hue= "size", size = "size", data = df);
+
+
+## Displaying Linear Relationship
+import seaborn as sns
+tips = sns.load_dataset("tips")
+df = tips.copy()
+df.head()
+
+import matplotlib.pyplot as plt
+
+sns.lmplot(x = "total_bill", y = "tip", data = df);
+sns.lmplot(x = "total_bill", y = "tip", hue = "smoker", data = df);
+sns.lmplot(x = "total_bill", y = "tip", hue = "smoker", col = "time", data = df);
+sns.lmplot(x = "total_bill", y = "tip", hue = "smoker", col = "time", row = "sex", data = df);
+
+
+## Scatterplot Matrix
+
+import seaborn as sns; 
+iris = sns.load_dataset("iris")
+df = iris.copy()
+df.head()
+df.dtypes
+df.shape
+sns.pairplot(df);
+sns.pairplot(df, hue = "species");
+sns.pairplot(df, hue = "species", markers = ["o","s","D"]);
+sns.pairplot(df, kind = "reg", hue = "species");
+
+
+## HEATMAP
+import seaborn as sns
+flights = sns.load_dataset('flights')
+df = flights.copy()
+df.head()
+df.shape
+df["passengers"].describe()
+df = df.pivot("month", "year", "passengers");
+df
+
+sns.heatmap(df);
+sns.heatmap(df, annot = True, fmt = "d");
+sns.heatmap(df, annot = True, fmt = "d", linewidths = .5);
+sns.heatmap(df, annot = True, fmt = "d", linewidths = .5, cbar = False);
+
+
+## Line Chart
+import seaborn as sns
+fmri = sns.load_dataset("fmri")
+df = fmri.copy()
+df.head()
+df.shape
+
+df["timepoint"].describe()
+df["signal"].describe()
+
+df.groupby("timepoint")["signal"].count()
+df.groupby("signal").count()
+df.groupby("timepoint")["signal"].describe()
+
+
+## Line Chart and Crossovers
+sns.lineplot(x = "timepoint", y = "signal", data = df);
+sns.lineplot(x = "timepoint", y = "signal", hue = "event", data = df);
+sns.lineplot(x = "timepoint", y = "signal", hue = "event", style = "event", data = df);
+
+sns.lineplot(x = "timepoint", 
+             y = "signal", 
+             hue = "event", 
+             style = "event", 
+             markers = True,  dashes = False, data = df);
+
+sns.lineplot(x = "timepoint", 
+             y = "signal", 
+             hue = "region", 
+             style = "event", 
+             data = df);
+
+
+# Simple Time Series Chart
+
+!pip install pandas_datareader
+import pandas_datareader as pr
+df = pr.get_data_yahoo("AAPL", start = "2016-01-01", end = "2019-08-25")
+
+df.head()
+df.shape
+
+closing = df["Close"]
+closing.head()
+closing.plot();
+closing.index
+closing.index = pd.DatetimeIndex(closing.index)
+closing.head()
+closing.plot();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
